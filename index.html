@@ -123,99 +123,6 @@ const CATS={
  sight:{label:"Památky",emoji:"🏰",f:['["historic"]','["tourism"="attraction"]']},
  trail:{label:"Stezky a vyhlídky",emoji:"🥾",f:['["route"~"^(hiking|foot)$"]','["tourism"="viewpoint"]']}
 };
-
-/* --- VZOROVÁ ZÁLOHA 3 MÍST PRO KAŽDOU KATEGORII A MĚSTO --- */
-const FALLBACK_PLACES = {
-  "Praha": {
-    hotel: [
-      {id: "f1", name: "Grand Hotel Bohemia", city: "Praha", category: "hotel", description: "Luxusní hotel v centru Prahy nedaleko Prašné brány. · Ubytování", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", lat: 50.087, lon: 14.428, web: "https://www.grandhotelbohemia.cz"},
-      {id: "f2", name: "Hotel Josef", city: "Praha", category: "hotel", description: "Designový hotel v klidné uličce Starého Města. · Ubytování", image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500", lat: 50.091, lon: 14.425, web: "https://www.hoteljosef.com"},
-      {id: "f3", name: "Alchymist Grand Hotel", city: "Praha", category: "hotel", description: "Pětihvězdičkový historický hotel pod Malou Stranou s wellness. · Ubytování", image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500", lat: 50.088, lon: 14.403, web: "https://www.alchymisthotel.com"}
-    ],
-    restaurant: [
-      {id: "f4", name: "Café Louvre", city: "Praha", category: "restaurant", description: "Historická kavárna z roku 1902, kam chodíval Kafka i Einstein. · Kuchyně: káva, dezerty · Kavárna", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", lat: 50.081, lon: 14.419, web: "https://www.cafelouvre.cz"},
-      {id: "f5", name: "Lokál Dlouhááá", city: "Praha", category: "restaurant", description: "Tradiční česká hospoda s tankovým plzeňským pivem. · Kuchyně: česká · Hospoda", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", lat: 50.089, lon: 14.424, web: "https://lokal-dlouha.ambi.cz"},
-      {id: "f6", name: "Restaurace Bellevue", city: "Praha", category: "restaurant", description: "Fine dining restaurace s výhledem na Karlův most. · Kuchyně: moderní · Restaurace", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500", lat: 50.085, lon: 14.414, web: "https://www.bellevuerestaurant.cz"}
-    ],
-    sight: [
-      {id: "f7", name: "Pražský hrad", city: "Praha", category: "sight", description: "Historické sídlo českých panovníků, největší hradní komplex. · Historická památka", image: "https://images.unsplash.com/photo-1541845157-86d25244c775?w=500", lat: 50.090, lon: 14.400, web: "https://www.hrad.cz"},
-      {id: "f8", name: "Karlův most", city: "Praha", category: "sight", description: "Gotický kamenný most přes Vltavu zdobený barokními sochami. · Historická památka", image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=500", lat: 50.086, lon: 14.411, web: ""},
-      {id: "f9", name: "Staroměstský orloj", city: "Praha", category: "sight", description: "Středověký astronomický orloj na Staroměstském náměstí. · Historická památka", image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500", lat: 50.087, lon: 14.420, web: ""}
-    ],
-    trail: [
-      {id: "f10", name: "Petřínské sady a rozhledna", city: "Praha", category: "trail", description: "Oblíbená zelená oáza v centru s rozhlednou. · Vyhlídka", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500", lat: 50.083, lon: 14.398, web: ""},
-      {id: "f11", name: "Prokopské údolí", city: "Praha", category: "trail", description: "Přírodní rezervace s vápencovými lomy a naučnou stezkou. · Pěší trasa", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500", lat: 50.043, lon: 14.365, web: ""},
-      {id: "f12", name: "Divoká Šárka", city: "Praha", category: "trail", description: "Rozlehlá přírodní rezervace se skalami a koupalištěm. · Pěší trasa", image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500", lat: 50.101, lon: 14.328, web: ""}
-    ]
-  },
-  "Brno": {
-    hotel: [
-      {id: "b1", name: "Barceló Brno Palace", city: "Brno", category: "hotel", description: "Elegantní hotel v historické budově Paláce Schrattenbach. · Ubytování", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", lat: 49.193, lon: 16.608, web: ""},
-      {id: "b2", name: "Hotel Slavia", city: "Brno", category: "hotel", description: "Tradiční hotel naproti Janáčkovu divadlu. · Ubytování", image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500", lat: 49.196, lon: 16.605, web: ""},
-      {id: "b3", name: "Courtyard by Marriott Brno", city: "Brno", category: "hotel", description: "Moderní čtyřhvězdičkový hotel u nákupního centra Vaňkovka. · Ubytování", image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500", lat: 49.188, lon: 16.613, web: ""}
-    ],
-    restaurant: [
-      {id: "b4", name: "Kohout Na Víně", city: "Brno", category: "restaurant", description: "Brněnská restaurace zaměřená na moderní gastronomii. · Kuchyně: moderní · Restaurace", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500", lat: 49.195, lon: 16.607, web: ""},
-      {id: "b5", name: "Pivovarská pivnice Pegas", city: "Brno", category: "restaurant", description: "Pivovarská restaurace s vlastní výrobou kvasnicového piva. · Kuchyně: česká · Hospoda", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", lat: 49.198, lon: 16.606, web: ""},
-      {id: "b6", name: "SKØG Urban Hub", city: "Brno", category: "restaurant", description: "Skandinávská kavárna v centru s výběrovou kávou. · Kuchyně: káva, drinky · Kavárna", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", lat: 49.193, lon: 16.609, web: ""}
-    ],
-    sight: [
-      {id: "b7", name: "Hrad Špilberk", city: "Brno", category: "sight", description: "Monumentální hrad a pevnost tyčící se nad centrem Brna. · Historická památka", image: "https://images.unsplash.com/photo-1541845157-86d25244c775?w=500", lat: 49.195, lon: 16.599, web: ""},
-      {id: "b8", name: "Vila Tugendhat", city: "Brno", category: "sight", description: "Slavná funkcionalistická vila zapsaná na seznamu UNESCO. · Historická památka", image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=500", lat: 49.202, lon: 16.615, web: ""},
-      {id: "b9", name: "Katedrála sv. Petra a Pavla", city: "Brno", category: "sight", description: "Petrov – dominanta Brna s vyhlídkovými věžemi. · Historická památka", image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500", lat: 49.192, lon: 16.607, web: ""}
-    ],
-    trail: [
-      {id: "b10", name: "Wilsonův les", city: "Brno", category: "trail", description: "Lesopark nedaleko centra ideální na procházky. · Pěší trasa", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500", lat: 49.195, lon: 16.585, web: ""},
-      {id: "b11", name: "Mariánské údolí", city: "Brno", category: "trail", description: "Rekreační oblast v Líšni s rybníky a turistickými stezkami. · Pěší trasa", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500", lat: 49.208, lon: 16.712, web: ""},
-      {id: "b12", name: "Brněnská přehrada", city: "Brno", category: "trail", description: "Okolí přehrady nabízí stezky kolem vody a výhledy na hrad Veveří. · Pěší trasa", image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500", lat: 49.232, lon: 16.531, web: ""}
-    ]
-  },
-  "Pardubice": {
-    hotel: [
-      {id: "p1", name: "EA Hotel Pardubice", city: "Pardubice", category: "hotel", description: "Pohodlný hotel blízko centra a hlavního nádraží. · Ubytování", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", lat: 50.038, lon: 15.778, web: ""},
-      {id: "p2", name: "Hotel 100", city: "Pardubice", category: "hotel", description: "Moderní ubytování v Pardubicích s výbornou dostupností. · Ubytování", image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500", lat: 50.034, lon: 15.781, web: ""},
-      {id: "p3", name: "Penzion Arnost", city: "Pardubice", category: "hotel", description: "Útulný penzion v klidné části města. · Penzion", image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500", lat: 50.030, lon: 15.775, web: ""}
-    ],
-    restaurant: [
-      {id: "p4", name: "Restaurace Veselka", city: "Pardubice", category: "restaurant", description: "Tradiční pardubická restaurace na Pernštýnském náměstí. · Kuchyně: česká · Restaurace", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500", lat: 50.040, lon: 15.776, web: ""},
-      {id: "p5", name: "Café Atrium", city: "Pardubice", category: "restaurant", description: "Příjemná kavárna v centru s nabídkou domácích dezertů. · Kuchyně: káva, dezerty · Kavárna", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", lat: 50.038, lon: 15.780, web: ""},
-      {id: "p6", name: "Restaurace U Vojnů", city: "Pardubice", category: "restaurant", description: "Oblíbená restaurace s poctivou českou kuchyní a čepovaným pivem. · Kuchyně: česká · Restaurace", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", lat: 50.035, lon: 15.770, web: ""}
-    ],
-    sight: [
-      {id: "p7", name: "Zámek Pardubice", city: "Pardubice", category: "sight", description: "Renesanční zámek s valy a muzei Východočeského muzea. · Historická památka", image: "https://images.unsplash.com/photo-1541845157-86d25244c775?w=500", lat: 50.042, lon: 15.778, web: ""},
-      {id: "p8", name: "Zelená brána", city: "Pardubice", category: "sight", description: "Dominanta a symbol města Pardubic s vyhlídkou. · Historická památka", image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=500", lat: 50.040, lon: 15.777, web: ""},
-      {id: "p9", name: "Kunětická hora", city: "Pardubice", category: "sight", description: "Hradní zřícenina tyčící se nad Polabskou nížinou. · Historická památka", image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500", lat: 50.079, lon: 15.811, web: ""}
-    ],
-    trail: [
-      {id: "p10", name: "Tyršovy sady", city: "Pardubice", category: "trail", description: "Krásný park blízko řeky Chrudimky v širším centru. · Pěší trasa", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500", lat: 50.037, lon: 15.772, web: ""},
-      {id: "p11", name: "Polabinské břehy", city: "Pardubice", category: "trail", description: "Příjemná stezka podél řeky Labe vhodná pro pěší i cyklisty. · Pěší trasa", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500", lat: 50.048, lon: 15.765, web: ""},
-      {id: "p12", name: "Cesta kolem Labe", city: "Pardubice", category: "trail", description: "Okolní příroda Polabí ideální pro odpočinkové výlety. · Pěší trasa", image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500", lat: 50.055, lon: 15.750, web: ""}
-    ]
-  },
-  "Špindlerův Mlýn": {
-    hotel: [
-      {id: "s1", name: "Harmony Club Hotel", city: "Špindlerův Mlýn", category: "hotel", description: "Wellness hotel s širokou nabídkou sportovních aktivit a bazénem. · Ubytování", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", lat: 50.725, lon: 15.605, web: ""},
-      {id: "s2", name: "Hotel Olympie", city: "Špindlerův Mlýn", category: "hotel", description: "Horský hotel v klidné části Svatého Petra. · Ubytování", image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500", lat: 50.720, lon: 15.618, web: ""},
-      {id: "s3", name: "Pinia Hotel & Resort", city: "Špindlerův Mlýn", category: "hotel", description: "Moderní horský resort s wellness a rodinným zázemím. · Ubytování", image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500", lat: 50.730, lon: 15.590, web: ""}
-    ],
-    restaurant: [
-      {id: "s4", name: "Budvarka Špindlerův Mlýn", city: "Špindlerův Mlýn", category: "restaurant", description: "Stylová horská restaurace s tradiční českou kuchyní. · Kuchyně: česká · Restaurace", image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500", lat: 50.727, lon: 15.609, web: ""},
-      {id: "s5", name: "Restaurace Lebeda", city: "Špindlerův Mlýn", category: "restaurant", description: "Moderní gastronomie v srdci Krkonoš s lokálními surovinami. · Kuchyně: moderní · Restaurace", image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500", lat: 50.726, lon: 15.610, web: ""},
-      {id: "s6", name: "Kavárna Sluníčko", city: "Špindlerův Mlýn", category: "restaurant", description: "Příjemné posezení u kávy a domácích koláčů po túře. · Kuchyně: dezerty, káva · Kavárna", image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=500", lat: 50.728, lon: 15.608, web: ""}
-    ],
-    sight: [
-      {id: "s7", name: "Bílý most", city: "Špindlerův Mlýn", category: "sight", description: "Architektonicky zajímavý obloukový most přes Labe v centru. · Turistická atrakce", image: "https://images.unsplash.com/photo-1541845157-86d25244c775?w=500", lat: 50.727, lon: 15.608, web: ""},
-      {id: "s8", name: "Labská přehrada", city: "Špindlerův Mlýn", category: "sight", description: "Údolní nádrž s kamennou sypanou hrází na řece Labe. · Turistická atrakce", image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=500", lat: 50.715, lon: 15.588, web: ""},
-      {id: "s9", name: "Svatý Petr – vyhlídka", city: "Špindlerův Mlýn", category: "sight", description: "Krásný výhled na celé údolí Svatého Petra a hory. · Vyhlídka", image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500", lat: 50.722, lon: 15.620, web: ""}
-    ],
-    trail: [
-      {id: "s10", name: "Cesta k Prameni Labe", city: "Špindlerův Mlýn", category: "trail", description: "Klasická krkonošská trasa vedoucí k prameni Labe. · Pěší trasa", image: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500", lat: 50.758, lon: 15.541, web: ""},
-      {id: "s11", name: "Kozí hřbety", city: "Špindlerův Mlýn", category: "trail", description: "Skalnatý hřeben s nádhernými výhledy do okolní krajiny. · Pěší trasa", image: "https://images.unsplash.com/photo-1448375240586-882707db888b?w=500", lat: 50.735, lon: 15.635, web: ""},
-      {id: "s12", name: "Medvědín a Naučná stezka", city: "Špindlerův Mlýn", category: "trail", description: "Trasa vhodná pro rodiny s dětmi na vrcholu Medvědína. · Pěší trasa", image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500", lat: 50.738, lon: 15.582, web: ""}
-    ]
-  }
-};
-
 const MIRRORS=["https://overpass-api.de/api/interpreter","https://overpass.private.coffee/api/interpreter","https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -237,7 +144,7 @@ $("more").onclick=()=>{shown+=24;render()};
 const openM=()=>$("modal").classList.add("on"),closeM=()=>$("modal").classList.remove("on");
 $("openAdd").onclick=openM;$("closeAdd").onclick=closeM;
 
-/* ---------- Načítání míst včetně záložních dat ---------- */
+/* ---------- Načítání míst ---------- */
 function fetchT(url,opt,ms){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);return fetch(url,{...opt,signal:c.signal}).finally(()=>clearTimeout(t))}
 function describe(t){const p=[];if(t.description)p.push(t.description);
  if(cat==="restaurant"){if(t.cuisine)p.push("Kuchyně: "+t.cuisine.replace(/[;_]/g,", "));p.push({cafe:"Kavárna",pub:"Hospoda",restaurant:"Restaurace"}[t.amenity]||"Restaurace")}
@@ -256,28 +163,13 @@ async function direct(){const {lat,lon,r}=CITIES[city];
  for(const u of MIRRORS){try{const res=await fetchT(u,{method:"POST",body:new URLSearchParams({data:q})},15000);if(res.ok)return parse(await res.json())}catch{}}
  return[]}
 async function loadPlaces(){
- const key=`tm_${city}_${cat}_v3`;
+ const key=`tm_${city}_${cat}_v2`;
  try{const c=JSON.parse(localStorage.getItem(key));if(c&&Date.now()-c.t<6048e5)return c.d}catch{}
  let d=[];
  try{const r=await fetchT(`/api/places?city=${encodeURIComponent(city)}&cat=${cat}`,{},20000);if(r.ok)d=await r.json()}catch{}
  if(!d.length)d=await direct();
- 
- // Pokud online API nic nevrátí, použijeme ručně připravená 3 místa nebo generátor
- if(!d.length && FALLBACK_PLACES[city]?.[cat]) {
-   d = FALLBACK_PLACES[city][cat];
- }
- if(!d.length) {
-   const cInfo = CATS[cat];
-   d = [
-     {id: "gen1", name: `${cInfo.label} - Tip 1 (${city})`, city, category: cat, description: `Oblíbené místo v kategorii ${cInfo.label.toLowerCase()} ve městě ${city}. · ${cInfo.label}`, image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500", lat: CITIES[city]?.lat || 50, lon: CITIES[city]?.lon || 15, web: ""},
-     {id: "gen2", name: `${cInfo.label} - Tip 2 (${city})`, city, category: cat, description: `Další skvělé místo v lokalitě ${city}. · ${cInfo.label}`, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500", lat: (CITIES[city]?.lat || 50)+0.01, lon: (CITIES[city]?.lon || 15)+0.01, web: ""},
-     {id: "gen3", name: `${cInfo.label} - Tip 3 (${city})`, city, category: cat, description: `Ověřené doporučení pro návštěvníky ${city}. · ${cInfo.label}`, image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=500", lat: (CITIES[city]?.lat || 50)-0.01, lon: (CITIES[city]?.lon || 15)-0.01, web: ""}
-   ];
- }
-
  if(d.length)try{localStorage.setItem(key,JSON.stringify({t:Date.now(),d}))}catch{}
  return d}
-
 async function reload(){
  const my=++token;shown=24;tabs();$("city").value=city;
  $("title").textContent=`${CATS[cat].emoji} ${CATS[cat].label} – ${city}`;
@@ -286,7 +178,7 @@ async function reload(){
  const d=await loadPlaces();if(my!==token)return;
  osm=d;render(true)}
 
-/* ---------- Vykreslení ---------- */
+/* ---------- Vykreslení (řazení A–Z platí pro všechna místa najednou) ---------- */
 function render(afterLoad){
  const dir=sort==="za"?-1:1;
  const list=[...userPlaces.filter(p=>p.city===city&&p.category===cat),...osm]
@@ -294,7 +186,7 @@ function render(afterLoad){
   .sort((a,b)=>(a.name||"").localeCompare(b.name||"","cs")*dir);
  $("count").textContent=`Nalezeno míst: ${list.length}`;
  $("more").hidden=list.length<=shown;
- $("grid").innerHTML=list.slice(0,shown).map(card).join("")||`<div class="empty">Nic nenalezeno.</div>`;
+ $("grid").innerHTML=list.slice(0,shown).map(card).join("")||`<div class="empty">${afterLoad&&!osm.length&&!query?"Místa se nepodařilo načíst. Zkus to za chvíli znovu nebo přidej vlastní tip.":"Nic nenalezeno."}</div>`;
  setTimeout(lazyImages,0)}
 const commentsHtml=id=>(comments[id]||[]).map(c=>`<div><b>${esc(c.author)}</b>: ${esc(c.text)}</div>`).join("")||'<p class="muted" style="margin:0">Zatím žádné komentáře.</p>';
 function card(p){
@@ -310,7 +202,7 @@ function card(p){
  <div class="acts">${bk}<a href="${esc(map)}" target="_blank" rel="noopener">📍 Otevřít v mapách</a>${wb}</div></article>`}
 $("grid").addEventListener("error",e=>{const im=e.target;if(im.tagName!=="IMG")return;const cc=im.dataset.cat,d=document.createElement("div");d.className="ph g-"+cc;d.textContent=(CATS[cc]||CATS.hotel).emoji;im.replaceWith(d)},true);
 
-/* ---------- Fotky z Wikimedia Commons podle GPS ---------- */
+/* ---------- Fotky z Wikimedia Commons podle GPS (jen viditelné karty) ---------- */
 let imgCache={};try{imgCache=JSON.parse(localStorage.getItem("tm_img_v1"))||{}}catch{}
 async function findImg(lat,lon,rad){
  const u=`https://commons.wikimedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${encodeURIComponent(lat+"|"+lon)}&ggsradius=${rad}&ggslimit=10&ggsnamespace=6&prop=imageinfo&iiprop=url|mime&iiurlwidth=500&format=json&origin=*`;
@@ -325,7 +217,7 @@ const io=new IntersectionObserver(es=>es.forEach(async en=>{
 }),{rootMargin:"200px"});
 function lazyImages(){document.querySelectorAll(".ph[data-pid]").forEach(el=>io.observe(el))}
 
-/* ---------- Firebase ---------- */
+/* ---------- Firebase se načítá až po zobrazení míst (rychlejší start) ---------- */
 let db,fb;
 const fbReady=(async()=>{
  await new Promise(r=>"requestIdleCallback"in window?requestIdleCallback(r,{timeout:1500}):setTimeout(r,300));
