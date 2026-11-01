@@ -107,9 +107,8 @@ $("more").onclick = () => { shown += 24; render(); };
 // ---------- Načtení reálných míst z OpenStreetMap (s cache) ----------
 async function loadOsm() {
   try {
-    window.__static ||= await (await fetch("data.json")).json();
-    const s = window.__static[`${city}_${cat}`];
-    if (s && s.length) return s;
+    const r = await fetch(`/api/places?city=${encodeURIComponent(city)}&cat=${cat}`);
+    if (r.ok) { const d = await r.json(); if (d.length) return d; }
   } catch {}
   const key = `tm_${city}_${cat}_v1`;
   try { const c = JSON.parse(localStorage.getItem(key)); if (c && Date.now() - c.t < 7*864e5) return c.d; } catch {}
