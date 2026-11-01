@@ -135,7 +135,7 @@
     <!-- Firebase a Logika aplikace -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         // ⚙️ SEM VLOŽ SVOJE FIREBASE CONFIG ÚDAJE Z KONZOLE
        const firebaseConfig = {
@@ -159,13 +159,13 @@
             snapshot.forEach((doc) => {
                 allPlaces.push({ id: doc.id, ...doc.data() });
             });
-            filterAndRecord();
+            filterAndRender();
         }, (error) => {
             console.error("Chyba při načítání dat z Firebase:", error);
             document.getElementById('resultsCount').innerText = "Chyba připojení k databázi (zkontroluj Firebase config).";
         });
 
-        window.filterAndRecord = function() {
+        window.filterAndRender = function() {
             const city = document.getElementById('cityFilter').value;
             const category = document.getElementById('categoryFilter').value;
 
@@ -281,7 +281,6 @@
             const updatedComments = [...(targetPlace.comments || []), { author, text }];
 
             try {
-                const { updateDoc } = await import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js");
                 await updateDoc(placeRef, { comments: updatedComments });
                 event.target.reset();
             } catch (e) {
