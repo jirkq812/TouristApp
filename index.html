@@ -31,6 +31,12 @@ a{color:inherit}
 .f.grow{flex:1 1 200px}
 .tab{border:1px solid #bfd6e6;background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.9rem}
 .tab.on{background:var(--g);border-color:var(--g);color:#fff}
+
+/* Styly pro reklamní pozice */
+.ad-banner{background:#fff;border-radius:14px;padding:16px;text-align:center;margin:24px 0 10px;border:2px dashed #bfd6e6;color:#6b8499;font-size:.85rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card.ad-card{border:2px dashed #bfd6e6;background:#f7fbff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:#6b8499;min-height:340px}
+.ad-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#9ab2c7;margin-bottom:8px}
+
 .head{display:flex;justify-content:space-between;align-items:baseline;margin:28px 0 14px;gap:10px;flex-wrap:wrap}
 .head h2{margin:0;font-size:1.5rem;color:var(--g)}
 .muted{color:#6b8499;font-size:.85rem}
@@ -95,8 +101,18 @@ footer{margin-top:40px;background:var(--g);color:#cfe3f2;text-align:center;paddi
     </div>
     <div class="row" id="catTabs"></div>
   </div>
+
+  <!-- REKLAMNÍ MÍSTO 1: Horní banner -->
+  <div class="ad-banner">
+    <div class="ad-label">Reklama / Partner</div>
+    <!-- Zde vlož svůj reklamní kód (např. Google AdSense ins tag nebo banner image) -->
+    <span>Místo pro váš reklamní banner</span>
+  </div>
+
   <div class="head"><h2 id="title"></h2><span class="muted" id="count"></span></div>
+  
   <div id="grid" class="grid"></div>
+  
   <button class="btn more" id="more" hidden>Zobrazit další</button>
 </main>
 
@@ -262,7 +278,6 @@ async function loadPlaces(){
  try{const r=await fetchT(`/api/places?city=${encodeURIComponent(city)}&cat=${cat}`,{},20000);if(r.ok)d=await r.json()}catch{}
  if(!d.length)d=await direct();
  
- // Pokud online API nic nevrátí, použijeme ručně připravená 3 místa nebo generátor
  if(!d.length && FALLBACK_PLACES[city]?.[cat]) {
    d = FALLBACK_PLACES[city][cat];
  }
@@ -286,16 +301,32 @@ async function reload(){
  const d=await loadPlaces();if(my!==token)return;
  osm=d;render(true)}
 
-/* ---------- Vykreslení ---------- */
+/* ---------- Vykreslení (včetně reklamní karty v mřížce) ---------- */
 function render(afterLoad){
  const dir=sort==="za"?-1:1;
  const list=[...userPlaces.filter(p=>p.city===city&&p.category===cat),...osm]
   .filter(p=>(p.name||"").toLowerCase().includes(query))
   .sort((a,b)=>(a.name||"").localeCompare(b.name||"","cs")*dir);
+ 
  $("count").textContent=`Nalezeno míst: ${list.length}`;
  $("more").hidden=list.length<=shown;
- $("grid").innerHTML=list.slice(0,shown).map(card).join("")||`<div class="empty">Nic nenalezeno.</div>`;
+ 
+ const itemsHtml = list.slice(0,shown).map((p, index) => {
+   let html = card(p);
+   // REKLAMNÍ MÍSTO 2: Vložíme reklamní kartu jako druhou položku v mřížce (pokud je dostatek prvků)
+   if (index === 1) {
+     html += `<article class="card ad-card">
+       <div class="ad-label">Sponzorováno</div>
+       <p><strong>Místo pro reklamu</strong></p>
+       <p style="font-size: 0.8rem; margin: 8px 0 0;">Sem můžete vložit kód reklamního boxu nebo partnerský odkaz.</p>
+     </article>`;
+   }
+   return html;
+ }).join("");
+
+ $("grid").innerHTML = itemsHtml || `<div class="empty">Nic nenalezeno.</div>`;
  setTimeout(lazyImages,0)}
+
 const commentsHtml=id=>(comments[id]||[]).map(c=>`<div><b>${esc(c.author)}</b>: ${esc(c.text)}</div>`).join("")||'<p class="muted" style="margin:0">Zatím žádné komentáře.</p>';
 function card(p){
  const c=CATS[p.category]||CATS.hotel;
@@ -308,6 +339,7 @@ function card(p){
  <p class="desc">${esc(p.description)}</p><h4>Recenze</h4><div class="cm" id="c-${esc(p.id)}">${commentsHtml(p.id)}</div>
  <form class="cf" data-place="${esc(p.id)}"><input required maxlength="30" placeholder="Jméno"><input required maxlength="300" placeholder="Komentář…"><button aria-label="Odeslat">+</button></form></div>
  <div class="acts">${bk}<a href="${esc(map)}" target="_blank" rel="noopener">📍 Otevřít v mapách</a>${wb}</div></article>`}
+
 $("grid").addEventListener("error",e=>{const im=e.target;if(im.tagName!=="IMG")return;const cc=im.dataset.cat,d=document.createElement("div");d.className="ph g-"+cc;d.textContent=(CATS[cc]||CATS.hotel).emoji;im.replaceWith(d)},true);
 
 /* ---------- Fotky z Wikimedia Commons podle GPS ---------- */
