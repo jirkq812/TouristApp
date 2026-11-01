@@ -31,17 +31,29 @@ module.exports = async (req, res) => {
   const { city, cat } = req.query;
   const c = CITIES[city];
   if (!c || !CATS[cat]) return res.status(400).json({ error: "bad params" });
-  const q = `[out:json][timeout:40];(${CATS[cat].map(f => `nwr(around:${c.r},${c.lat},${c.lon})${f}["name"];`).join("")});out tags center 100;`;
-  let json = null;
-  for (const url of ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]) {
+  const q = `[out:json][timeout:25];(${CATS[cat].map(f => `nwr(around:${c.r},${c.lat},${c.lon})${f}["name"];`).join("")});out tags center 100;`;
+  let json = null; const errors = [];
+  const MIRRORS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://z.overpass-api.de/api/interpreter",
+    "https://overpass.kumi.systems/api/interpreter"
+  ];
+  for (const url of MIRRORS) {
     try {
-      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 22000);
-      const r = await fetch(url, { method: "POST", body: new URLSearchParams({ data: q }), signal: ctl.signal });
+      const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 9000);
+      const r = await fetch(url, {
+        method: "POST", signal: ctl.signal,
+        headers: { "Content-Type": "application/x-www-form-urlencoded", "User-Agent": "TourisMate/1.0 (touristapp-two.vercel.app)", "Accept": "application/json" },
+        body: "data=" + encodeURIComponent(q)
+      });
       clearTimeout(to);
       if (r.ok) { json = await r.json(); break; }
-    } catch (e) {}
+      errors.push(new URL(url).host + ": HTTP " + r.status);
+    } catch (e) { errors.push(new URL(url).host + ": " + (e.name === "AbortError" ? "timeout" : e.message)); }
   }
-  if (!json) return res.status(502).json({ error: "overpass unavailable" });
+  if (!json) return res.status(502).json({ error: "overpass unavailable", details: errors });
   const seen = new Set();
   const data = json.elements.map(e => {
     const t = e.tags, la = e.lat ?? (e.center && e.center.lat), lo = e.lon ?? (e.center && e.center.lon);
