@@ -2,257 +2,242 @@
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TourisMate – Komunitní průvodce městy</title>
-<meta name="description" content="Hotely, restaurace a památky v Pardubicích, Praze a Brně. Tipy a recenze od cestovatelů.">
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<style>body{font-family:'Inter',system-ui,sans-serif}.card{transition:transform .2s,box-shadow .2s}.card:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.1)}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TourisMate – Hotely, restaurace, památky a stezky</title>
+<meta name="description" content="Komunitní průvodce: hotely, restaurace, památky a turistické stezky v krajských městech ČR, Špindlerově Mlýně a Krkonoších.">
+<meta name="theme-color" content="#16486f">
+<style>
+:root{--g:#16486f;--m:#2f8fd1;--c:#eef6fc;--w:#2b6a96;--a:#2a7fbf;--t:#1f2d3a;--l:#d9eaf6}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--c);color:var(--t)}
+.serif,h1,h2,h3{font-family:Georgia,"Times New Roman",serif}
+button,select,input,textarea{font:inherit;color:inherit}
+a{color:inherit}
+.wrap{max-width:1150px;margin:0 auto;padding:0 16px}
+.hero{background:linear-gradient(#16486f,#3d8cc6 60%,#a9d6f1);color:#fff;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
+.logo{font-size:1.4rem;font-weight:700;letter-spacing:.3px}
+.btn{border:0;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;background:var(--a);color:#fff}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:#fff;color:var(--g)}
+.btn.sec{background:var(--l);color:var(--t)}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.1;margin:28px 0 10px;max-width:700px}
+.hero p{margin:0 0 18px;max-width:560px;color:#e8f4fc}
+.hero svg{display:block;width:100%;height:110px;margin-top:6px}
+.bar{background:#fff;border-radius:16px;box-shadow:0 8px 24px rgba(22,72,111,.15);padding:14px;margin-top:-26px;position:relative;display:grid;gap:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>*{flex:0 0 auto}
+.f{border:1px solid #bfd6e6;border-radius:10px;padding:9px 12px;background:#fff;min-width:0}
+.f.grow{flex:1 1 200px}
+.tab{border:1px solid #bfd6e6;background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.9rem}
+.tab.on{background:var(--g);border-color:var(--g);color:#fff}
+.head{display:flex;justify-content:space-between;align-items:baseline;margin:28px 0 14px;gap:10px;flex-wrap:wrap}
+.head h2{margin:0;font-size:1.5rem;color:var(--g)}
+.muted{color:#6b8499;font-size:.85rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.card{background:#fff;border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s;content-visibility:auto;contain-intrinsic-size:420px}
+.card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
+.ph,.card img{width:100%;height:170px;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:3.4rem}
+.g-hotel{background:linear-gradient(135deg,#8fc6ea,#2f6f9f)}
+.g-restaurant{background:linear-gradient(135deg,#d99a5b,#9b4d2e)}
+.g-sight{background:linear-gradient(135deg,#b7c6d4,#5c7389)}
+.g-trail{background:linear-gradient(135deg,#9bd0cf,#2f7f86)}
+.body{padding:14px 16px;flex:1}
+.card h3{margin:0 0 4px;font-size:1.1rem;line-height:1.25}
+.tag{display:inline-block;font-size:.72rem;padding:2px 9px;border-radius:999px;background:#e3f1fb;color:#1f6a9f;margin-right:4px}
+.tag.new{background:#fff1d0;color:#8a6410}
+.desc{font-size:.88rem;color:#4a5d6e;margin:8px 0 10px}
+.card h4{margin:6px 0 4px;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#7f98ab}
+.cm{max-height:90px;overflow:auto}
+.cm div{background:#f1f8fd;border-radius:6px;padding:5px 8px;font-size:.78rem;margin-bottom:4px}
+.cm b{color:var(--w)}
+.cf{display:flex;gap:6px;margin-top:6px}
+.cf input{min-width:0;padding:6px;border:1px solid #c9dded;border-radius:6px;font-size:.78rem}
+.cf input:first-child{width:33%}.cf input:nth-child(2){flex:1}
+.cf button{border:0;background:var(--m);color:#fff;border-radius:6px;padding:0 12px;cursor:pointer}
+.acts{padding:0 16px 16px;display:grid;gap:8px}
+.acts a{display:block;text-align:center;padding:9px;border-radius:10px;text-decoration:none;font-weight:600;font-size:.88rem;background:var(--l)}
+.acts a.bk{background:var(--m);color:#fff}
+.acts a.wb{background:none;font-weight:400;color:var(--m);padding:2px}
+.empty{grid-column:1/-1;text-align:center;padding:40px 10px;color:#6b8499}
+.more{display:block;margin:26px auto}
+footer{margin-top:40px;background:var(--g);color:#cfe3f2;text-align:center;padding:24px 16px;font-size:.82rem}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+#modal.on{display:flex}
+#addForm{background:#fff;border-radius:16px;max-width:480px;width:100%;padding:22px;display:grid;gap:10px;max-height:100%;overflow:auto}
+#addForm h3{margin:0}
+#addForm .f{width:100%}
+.sk{height:300px;border-radius:14px;background:linear-gradient(90deg,#dcebf6,#f3f9fd,#dcebf6);background-size:200% 100%;animation:s 1.2s infinite}
+@keyframes s{to{background-position:-200% 0}}
+@media(max-width:560px){.hero svg{height:60px}.row .f.grow{flex-basis:100%}}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
-
-<header class="bg-gradient-to-br from-indigo-700 via-blue-600 to-cyan-500 text-white">
-  <div class="max-w-6xl mx-auto px-4 pt-6 pb-16">
-    <div class="flex justify-between items-center">
-      <h1 class="text-2xl font-extrabold">🌍 TourisMate</h1>
-      <button id="openAdd" class="bg-white text-indigo-700 font-semibold px-4 py-2 rounded-full shadow hover:bg-indigo-50 text-sm">+ Přidat místo</button>
-    </div>
-    <h2 class="text-3xl md:text-5xl font-extrabold mt-10 max-w-2xl leading-tight">Objevuj města očima cestovatelů</h2>
-    <p class="mt-3 text-blue-100 max-w-xl">Hotely, restaurace a památky s odkazem na mapy. Přidej vlastní tip nebo napiš recenzi.</p>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="top"><span class="logo serif">🏔️ TourisMate</span><button class="btn ghost" id="openAdd">+ Přidat místo</button></div>
+    <h1>Objevuj města a hory očima cestovatelů</h1>
+    <p>Hotely, restaurace, památky a turistické stezky v krajských městech, Špindlerově Mlýně a Krkonoších.</p>
   </div>
+  <svg viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true">
+<path fill="#8fc0e3" d="M0 110V62L110 34 230 66 360 12 500 70 680 26 840 72 1000 18 1200 68V110z"/>
+<path fill="#fff" d="M360 12L330 38 348 33 360 44 374 32 392 39zM680 26L654 46 670 41 680 52 694 42 710 47zM1000 18L970 42 988 36 1000 48 1014 36 1032 43zM110 34L88 50 102 46 110 55 122 46 134 51z"/>
+<path fill="#c7e1f3" d="M0 110V86L180 62 340 90 540 66 740 92 940 68 1200 90V110z"/>
+<path fill="#eef6fc" d="M0 110V98L220 84 440 100 660 86 900 101 1200 88V110z"/></svg>
 </header>
 
-<main class="max-w-6xl mx-auto px-4 -mt-10 w-full flex-grow">
-  <div class="bg-white rounded-2xl shadow-lg p-4 md:p-5 flex flex-col gap-3">
-    <div class="flex gap-2 flex-wrap" id="cityTabs"></div>
-    <div class="flex gap-2 flex-wrap" id="catTabs"></div>
-    <input id="search" type="search" placeholder="Hledat podle názvu…" class="w-full md:w-72 border border-slate-300 rounded-full px-4 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+<main class="wrap">
+  <div class="bar">
+    <div class="row">
+      <select id="city" class="f" aria-label="Město"></select>
+      <input id="search" type="search" class="f grow" placeholder="Hledat podle názvu…" aria-label="Hledat">
+      <select id="sort" class="f" aria-label="Řazení"><option value="az">Řazení: A → Z</option><option value="za">Řazení: Z → A</option></select>
+    </div>
+    <div class="row" id="catTabs"></div>
   </div>
-
-  <div class="flex justify-between items-center mt-8 mb-4">
-    <h3 class="text-xl font-bold" id="title"></h3>
-    <span id="count" class="text-sm text-slate-500"></span>
-  </div>
-  <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  <div class="text-center my-8"><button id="more" class="hidden bg-indigo-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-indigo-700">Zobrazit další</button></div>
-  <p class="text-xs text-slate-400 text-center mb-6">Data míst: © přispěvatelé OpenStreetMap (ODbL) · Fotky: Wikimedia Commons (různé svobodné licence, fotka může být pořízená v okolí místa)</p>
+  <div class="head"><h2 id="title"></h2><span class="muted" id="count"></span></div>
+  <div id="grid" class="grid"></div>
+  <button class="btn more" id="more" hidden>Zobrazit další</button>
 </main>
 
-<footer class="bg-white border-t py-6 text-center text-sm text-slate-500">&copy; 2026 TourisMate · Odkazy na Booking.com mohou být affiliate.</footer>
+<footer>© 2026 TourisMate · Data míst: © přispěvatelé OpenStreetMap (ODbL) · Fotky: Wikimedia Commons (fotka může být pořízená v okolí místa) · Odkazy na Booking.com mohou být affiliate.</footer>
 
-<div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-  <form id="addForm" class="bg-white rounded-2xl max-w-lg w-full p-6 space-y-3 max-h-full overflow-y-auto">
-    <h3 class="text-xl font-bold">Přidat nové místo</h3>
-    <input id="fName" required maxlength="80" placeholder="Název místa" class="w-full border rounded-lg p-2.5 text-sm">
-    <div class="grid grid-cols-2 gap-3">
-      <select id="fCity" class="border rounded-lg p-2.5 text-sm"></select>
-      <select id="fCat" class="border rounded-lg p-2.5 text-sm"></select>
-    </div>
-    <textarea id="fDesc" required maxlength="400" rows="3" placeholder="Krátký popis" class="w-full border rounded-lg p-2.5 text-sm"></textarea>
-    <input id="fImg" type="url" placeholder="URL fotky (volitelné)" class="w-full border rounded-lg p-2.5 text-sm">
-    <input id="fMap" type="url" placeholder="Odkaz na mapy (volitelné)" class="w-full border rounded-lg p-2.5 text-sm">
-    <div class="flex justify-end gap-2 pt-2">
-      <button type="button" id="closeAdd" class="px-4 py-2 bg-slate-100 rounded-lg text-sm">Zrušit</button>
-      <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-semibold">Uložit</button>
-    </div>
-  </form>
-</div>
+<div id="modal"><form id="addForm">
+  <h3 class="serif">Přidat nové místo</h3>
+  <input id="fName" class="f" required maxlength="80" placeholder="Název místa">
+  <select id="fCity" class="f"></select>
+  <select id="fCat" class="f"></select>
+  <textarea id="fDesc" class="f" required maxlength="400" rows="3" placeholder="Krátký popis"></textarea>
+  <input id="fImg" type="url" class="f" placeholder="URL fotky (volitelné, https://…)">
+  <input id="fMap" type="url" class="f" placeholder="Odkaz na mapy (volitelné)">
+  <div class="row" style="justify-content:flex-end"><button type="button" class="btn sec" id="closeAdd">Zrušit</button><button class="btn">Uložit</button></div>
+</form></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAwf67q55t-rCran4hD1uXX5z8ENff1GU",
-  authDomain: "touristapp-e242c.firebaseapp.com",
-  projectId: "touristapp-e242c",
-  storageBucket: "touristapp-e242c.appfirebasestorage.app",
-  messagingSenderId: "490214550575",
-  appId: "1:490214550575:web:0b86983f7d85f055d56ada"
+const firebaseConfig={apiKey:"AIzaSyAwf67q55t-rCran4hD1uXX5z8ENff1GU",authDomain:"touristapp-e242c.firebaseapp.com",projectId:"touristapp-e242c",storageBucket:"touristapp-e242c.appfirebasestorage.app",messagingSenderId:"490214550575",appId:"1:490214550575:web:0b86983f7d85f055d56ada"};
+const AFFILIATE_ID="TVOJE_BOOKING_AID";
+const CITIES={"Praha":{lat:50.0755,lon:14.4378,r:8000},"Brno":{lat:49.1951,lon:16.6068,r:7000},"Ostrava":{lat:49.8209,lon:18.2625,r:7000},"Plzeň":{lat:49.7384,lon:13.3736,r:6000},"Liberec":{lat:50.7663,lon:15.0543,r:6000},"Olomouc":{lat:49.5938,lon:17.2509,r:6000},"České Budějovice":{lat:48.9745,lon:14.4743,r:6000},"Hradec Králové":{lat:50.2104,lon:15.8327,r:6000},"Pardubice":{lat:50.0343,lon:15.7812,r:7000},"Ústí nad Labem":{lat:50.6607,lon:14.0323,r:6000},"Karlovy Vary":{lat:50.2319,lon:12.8720,r:6000},"Jihlava":{lat:49.3961,lon:15.5912,r:6000},"Zlín":{lat:49.2265,lon:17.6627,r:6000},"Špindlerův Mlýn":{lat:50.7273,lon:15.6095,r:9000},"Krkonoše":{lat:50.7366,lon:15.7400,r:22000}};
+const CATS={
+ hotel:{label:"Hotely",emoji:"🏨",f:['["tourism"~"^(hotel|guest_house|hostel|apartment|motel)$"]']},
+ restaurant:{label:"Restaurace a kavárny",emoji:"🍽️",f:['["amenity"~"^(restaurant|cafe|pub)$"]']},
+ sight:{label:"Památky",emoji:"🏰",f:['["historic"]','["tourism"="attraction"]']},
+ trail:{label:"Stezky a vyhlídky",emoji:"🥾",f:['["route"~"^(hiking|foot)$"]','["tourism"="viewpoint"]']}
 };
-const db = getFirestore(initializeApp(firebaseConfig));
-const AFFILIATE_ID = "TVOJE_BOOKING_AID";
+const MIRRORS=["https://overpass-api.de/api/interpreter","https://overpass.private.coffee/api/interpreter","https://maps.mail.ru/osm/tools/overpass/api/interpreter"];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"";
+let city="Praha",cat="hotel",query="",sort="az",shown=24,token=0;
+let osm=[],userPlaces=[],comments={};
 
-const CITIES = {
-  "Praha":{lat:50.0755,lon:14.4378,r:8000}, "Brno":{lat:49.1951,lon:16.6068,r:7000}, "Ostrava":{lat:49.8209,lon:18.2625,r:7000},
-  "Plzeň":{lat:49.7384,lon:13.3736,r:6000}, "Liberec":{lat:50.7663,lon:15.0543,r:6000}, "Olomouc":{lat:49.5938,lon:17.2509,r:6000},
-  "České Budějovice":{lat:48.9745,lon:14.4743,r:6000}, "Hradec Králové":{lat:50.2104,lon:15.8327,r:6000}, "Pardubice":{lat:50.0343,lon:15.7812,r:7000},
-  "Ústí nad Labem":{lat:50.6607,lon:14.0323,r:6000}, "Karlovy Vary":{lat:50.2319,lon:12.8720,r:6000}, "Jihlava":{lat:49.3961,lon:15.5912,r:6000},
-  "Zlín":{lat:49.2265,lon:17.6627,r:6000}, "Špindlerův Mlýn":{lat:50.7273,lon:15.6095,r:9000}, "Krkonoše":{lat:50.7366,lon:15.7400,r:22000}
-};
-const CATS = {
-  hotel:{label:"Hotely",emoji:"🏨",grad:"from-sky-400 to-indigo-500",f:['["tourism"~"^(hotel|guest_house|hostel|apartment|motel)$"]']},
-  restaurant:{label:"Restaurace a kavárny",emoji:"🍽️",grad:"from-orange-400 to-rose-500",f:['["amenity"~"^(restaurant|cafe|pub)$"]']},
-  sight:{label:"Památky",emoji:"🏰",grad:"from-amber-400 to-emerald-600",f:['["historic"]','["tourism"="attraction"]']},
-  trail:{label:"Stezky a vyhlídky",emoji:"🥾",grad:"from-green-500 to-teal-700",f:['["route"~"^(hiking|foot)$"]','["tourism"="viewpoint"]']}
-};
-const $ = id => document.getElementById(id);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "";
+/* ---------- Ovládací prvky ---------- */
+$("city").innerHTML=Object.keys(CITIES).map(c=>`<option>${c}</option>`).join("");
+$("fCity").innerHTML=$("city").innerHTML;
+$("fCat").innerHTML=Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join("");
+$("city").value=city;
+function tabs(){$("catTabs").innerHTML=Object.entries(CATS).map(([k,v])=>`<button class="tab${k===cat?" on":""}" data-cat="${k}">${v.emoji} ${v.label}</button>`).join("")}
+$("city").onchange=e=>{city=e.target.value;reload()};
+$("catTabs").onclick=e=>{const c=e.target.closest("[data-cat]");if(c){cat=c.dataset.cat;reload()}};
+$("search").oninput=e=>{query=e.target.value.toLowerCase();shown=24;render()};
+$("sort").onchange=e=>{sort=e.target.value;render()};
+$("more").onclick=()=>{shown+=24;render()};
+const openM=()=>$("modal").classList.add("on"),closeM=()=>$("modal").classList.remove("on");
+$("openAdd").onclick=openM;$("closeAdd").onclick=closeM;
 
-let city = "Pardubice", cat = "hotel", query = "", shown = 24;
-let osmPlaces = [], userPlaces = [], comments = {};
+/* ---------- Načítání míst ---------- */
+function fetchT(url,opt,ms){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);return fetch(url,{...opt,signal:c.signal}).finally(()=>clearTimeout(t))}
+function describe(t){const p=[];if(t.description)p.push(t.description);
+ if(cat==="restaurant"){if(t.cuisine)p.push("Kuchyně: "+t.cuisine.replace(/[;_]/g,", "));p.push({cafe:"Kavárna",pub:"Hospoda",restaurant:"Restaurace"}[t.amenity]||"Restaurace")}
+ if(cat==="hotel")p.push({hotel:"Hotel",guest_house:"Penzion",hostel:"Hostel",apartment:"Apartmány",motel:"Motel"}[t.tourism]||"Ubytování");
+ if(cat==="sight")p.push(t.historic?"Historická památka ("+t.historic.replace(/_/g," ")+")":"Turistická atrakce");
+ if(cat==="trail"){if(t.tourism==="viewpoint")p.push("Vyhlídka");else{p.push(t.route==="foot"?"Pěší trasa":"Turistická trasa");if(t.colour)p.push("Značení: "+t.colour);if(t.distance)p.push("Délka: "+t.distance+" km");if(t.from&&t.to)p.push(t.from+" → "+t.to)}}
+ const a=[t["addr:street"],t["addr:housenumber"]].filter(Boolean).join(" ");if(a)p.push("Adresa: "+a);
+ if(t.opening_hours)p.push("Otevřeno: "+t.opening_hours);return p.join(" · ")}
+function parse(json){const seen=new Set();return json.elements.map(e=>{const t=e.tags,la=e.lat??e.center?.lat,lo=e.lon??e.center?.lon;
+ if(!la||seen.has(t.name))return null;seen.add(t.name);
+ let img=t.image&&/^https?:/.test(t.image)?t.image:"";
+ if(!img&&t.wikimedia_commons?.startsWith("File:"))img="https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(t.wikimedia_commons.slice(5))+"?width=500";
+ return{id:`${e.type}${e.id}`,name:t.name,city,category:cat,description:describe(t),image:img,lat:la,lon:lo,web:t.website||t["contact:website"]||""}}).filter(Boolean).slice(0,100)}
+async function direct(){const {lat,lon,r}=CITIES[city];
+ const q=`[out:json][timeout:25];(${CATS[cat].f.map(f=>`nwr(around:${r},${lat},${lon})${f}["name"];`).join("")});out tags center 100;`;
+ for(const u of MIRRORS){try{const res=await fetchT(u,{method:"POST",body:new URLSearchParams({data:q})},15000);if(res.ok)return parse(await res.json())}catch{}}
+ return[]}
+async function loadPlaces(){
+ const key=`tm_${city}_${cat}_v2`;
+ try{const c=JSON.parse(localStorage.getItem(key));if(c&&Date.now()-c.t<6048e5)return c.d}catch{}
+ let d=[];
+ try{const r=await fetchT(`/api/places?city=${encodeURIComponent(city)}&cat=${cat}`,{},20000);if(r.ok)d=await r.json()}catch{}
+ if(!d.length)d=await direct();
+ if(d.length)try{localStorage.setItem(key,JSON.stringify({t:Date.now(),d}))}catch{}
+ return d}
+async function reload(){
+ const my=++token;shown=24;tabs();$("city").value=city;
+ $("title").textContent=`${CATS[cat].emoji} ${CATS[cat].label} – ${city}`;
+ $("count").textContent="Načítám…";
+ $("grid").innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';$("more").hidden=true;
+ const d=await loadPlaces();if(my!==token)return;
+ osm=d;render(true)}
 
-// ---------- UI přepínače ----------
-const tab = (active, on) => `px-4 py-2 rounded-full text-sm font-semibold border ${on ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-600 border-slate-300 hover:bg-slate-100"}`;
-function drawTabs() {
-  $("cityTabs").innerHTML = Object.keys(CITIES).map(c => `<button data-city="${c}" class="${tab(0, c===city)}">${c}</button>`).join("");
-  $("catTabs").innerHTML = Object.entries(CATS).map(([k,v]) => `<button data-cat="${k}" class="${tab(0, k===cat)}">${v.emoji} ${v.label}</button>`).join("");
-}
-$("cityTabs").onclick = e => { const c = e.target.dataset.city; if (c) { city = c; reload(); } };
-$("catTabs").onclick = e => { const c = e.target.dataset.cat; if (c) { cat = c; reload(); } };
-$("search").oninput = e => { query = e.target.value.toLowerCase(); shown = 24; render(); };
-$("more").onclick = () => { shown += 24; render(); };
+/* ---------- Vykreslení (řazení A–Z platí pro všechna místa najednou) ---------- */
+function render(afterLoad){
+ const dir=sort==="za"?-1:1;
+ const list=[...userPlaces.filter(p=>p.city===city&&p.category===cat),...osm]
+  .filter(p=>(p.name||"").toLowerCase().includes(query))
+  .sort((a,b)=>(a.name||"").localeCompare(b.name||"","cs")*dir);
+ $("count").textContent=`Nalezeno míst: ${list.length}`;
+ $("more").hidden=list.length<=shown;
+ $("grid").innerHTML=list.slice(0,shown).map(card).join("")||`<div class="empty">${afterLoad&&!osm.length&&!query?"Místa se nepodařilo načíst. Zkus to za chvíli znovu nebo přidej vlastní tip.":"Nic nenalezeno."}</div>`;
+ setTimeout(lazyImages,0)}
+const commentsHtml=id=>(comments[id]||[]).map(c=>`<div><b>${esc(c.author)}</b>: ${esc(c.text)}</div>`).join("")||'<p class="muted" style="margin:0">Zatím žádné komentáře.</p>';
+function card(p){
+ const c=CATS[p.category]||CATS.hotel;
+ const map=safeUrl(p.mapUrl)||(p.lat?`https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lon}`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name+" "+p.city)}`);
+ const bk=p.category==="hotel"?`<a class="bk" href="https://www.booking.com/searchresults.html?aid=${AFFILIATE_ID}&ss=${encodeURIComponent(p.name+" "+p.city)}" target="_blank" rel="nofollow sponsored noopener">Rezervovat na Booking.com</a>`:"";
+ const wb=safeUrl(p.web)?`<a class="wb" href="${esc(safeUrl(p.web))}" target="_blank" rel="noopener nofollow">Web místa</a>`:"";
+ const img=safeUrl(p.image)?`<img src="${esc(safeUrl(p.image))}" alt="${esc(p.name)}" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-cat="${p.category}">`
+  :`<div class="ph g-${p.category}"${p.lat?` data-pid="${esc(p.id)}" data-lat="${p.lat}" data-lon="${p.lon}" data-cat="${p.category}"`:""}>${c.emoji}</div>`;
+ return `<article class="card">${img}<div class="body"><h3>${esc(p.name)}</h3><span class="tag">${esc(p.city)}</span>${p.id[0]==="u"?'<span class="tag new">Přidáno komunitou</span>':""}
+ <p class="desc">${esc(p.description)}</p><h4>Recenze</h4><div class="cm" id="c-${esc(p.id)}">${commentsHtml(p.id)}</div>
+ <form class="cf" data-place="${esc(p.id)}"><input required maxlength="30" placeholder="Jméno"><input required maxlength="300" placeholder="Komentář…"><button aria-label="Odeslat">+</button></form></div>
+ <div class="acts">${bk}<a href="${esc(map)}" target="_blank" rel="noopener">📍 Otevřít v mapách</a>${wb}</div></article>`}
+$("grid").addEventListener("error",e=>{const im=e.target;if(im.tagName!=="IMG")return;const cc=im.dataset.cat,d=document.createElement("div");d.className="ph g-"+cc;d.textContent=(CATS[cc]||CATS.hotel).emoji;im.replaceWith(d)},true);
 
-// ---------- Načtení reálných míst z OpenStreetMap (s cache) ----------
-async function loadOsm() {
-  try {
-    const r = await fetch(`/api/places?city=${encodeURIComponent(city)}&cat=${cat}`);
-    if (r.ok) { const d = await r.json(); if (d.length) return d; }
-  } catch {}
-  const key = `tm_${city}_${cat}_v1`;
-  try { const c = JSON.parse(localStorage.getItem(key)); if (c && Date.now() - c.t < 7*864e5) return c.d; } catch {}
-  const { lat, lon, r } = CITIES[city];
-  const q = `[out:json][timeout:30];(${CATS[cat].f.map(f => `nwr(around:${r},${lat},${lon})${f}["name"];`).join("")});out tags center 100;`;
-  let json;
-  for (const url of ["https://overpass-api.de/api/interpreter","https://overpass.kumi.systems/api/interpreter"]) {
-    try { const res = await fetch(url, { method:"POST", body:new URLSearchParams({data:q}) }); if (res.ok) { json = await res.json(); break; } } catch {}
-  }
-  if (!json) throw new Error("Overpass nedostupný");
-  const seen = new Set();
-  const data = json.elements.map(e => {
-    const t = e.tags, la = e.lat ?? e.center?.lat, lo = e.lon ?? e.center?.lon;
-    if (!la || seen.has(t.name)) return null; seen.add(t.name);
-    let img = t.image && /^https?:/.test(t.image) ? t.image : "";
-    if (!img && t.wikimedia_commons?.startsWith("File:")) img = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(t.wikimedia_commons.slice(5)) + "?width=600";
-    return { id:`${e.type}${e.id}`, name:t.name, city, category:cat, description:describe(t), image:img, lat:la, lon:lo, web:t.website || t["contact:website"] || "", osm:true };
-  }).filter(Boolean);
-  try { localStorage.setItem(key, JSON.stringify({t:Date.now(), d:data})); } catch {}
-  return data;
-}
-function describe(t) {
-  const p = [];
-  if (t.description) p.push(t.description);
-  if (cat === "restaurant") { if (t.cuisine) p.push("Kuchyně: " + t.cuisine.replace(/[;_]/g, ", ")); p.push({cafe:"Kavárna",pub:"Hospoda",restaurant:"Restaurace"}[t.amenity] || "Restaurace"); }
-  if (cat === "hotel") p.push({hotel:"Hotel",guest_house:"Penzion",hostel:"Hostel",apartment:"Apartmány",motel:"Motel"}[t.tourism] || "Ubytování");
-  if (cat === "sight") p.push(t.historic ? "Historická památka (" + t.historic.replace(/_/g," ") + ")" : "Turistická atrakce");
-  if (cat === "trail") {
-    if (t.tourism === "viewpoint") p.push("Vyhlídka");
-    else { p.push(t.route === "foot" ? "Pěší trasa" : "Turistická trasa"); if (t.colour) p.push("Značení: " + t.colour); if (t.distance) p.push("Délka: " + t.distance + " km"); if (t.from && t.to) p.push(t.from + " → " + t.to); }
-  }
-  const a = [t["addr:street"], t["addr:housenumber"]].filter(Boolean).join(" ");
-  if (a) p.push("Adresa: " + a);
-  if (t.opening_hours) p.push("Otevřeno: " + t.opening_hours);
-  return p.join(" · ");
-}
+/* ---------- Fotky z Wikimedia Commons podle GPS (jen viditelné karty) ---------- */
+let imgCache={};try{imgCache=JSON.parse(localStorage.getItem("tm_img_v1"))||{}}catch{}
+async function findImg(lat,lon,rad){
+ const u=`https://commons.wikimedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${encodeURIComponent(lat+"|"+lon)}&ggsradius=${rad}&ggslimit=10&ggsnamespace=6&prop=imageinfo&iiprop=url|mime&iiurlwidth=500&format=json&origin=*`;
+ const j=await(await fetchT(u,{},8000)).json();
+ const hit=Object.values(j.query?.pages||{}).map(x=>x.imageinfo?.[0]).find(i=>i&&i.mime==="image/jpeg"&&i.thumburl);
+ return hit?hit.thumburl:""}
+const io=new IntersectionObserver(es=>es.forEach(async en=>{
+ if(!en.isIntersecting)return;const el=en.target;io.unobserve(el);
+ const{pid,lat,lon,cat:pc}=el.dataset;let url=imgCache[pid];
+ if(url===undefined){try{url=await findImg(lat,lon,pc==="trail"?500:100)}catch{return}imgCache[pid]=url;try{localStorage.setItem("tm_img_v1",JSON.stringify(imgCache))}catch{}}
+ if(url){const im=new Image();im.alt="";im.decoding="async";im.dataset.cat=pc;im.onload=()=>el.isConnected&&el.replaceWith(im);im.src=url}
+}),{rootMargin:"200px"});
+function lazyImages(){document.querySelectorAll(".ph[data-pid]").forEach(el=>io.observe(el))}
 
-async function reload() {
-  shown = 24; drawTabs();
-  $("title").textContent = `${CATS[cat].emoji} ${CATS[cat].label} – ${city}`;
-  $("count").textContent = "Načítám…"; $("grid").innerHTML = "";
-  try { osmPlaces = await loadOsm(); } catch (e) { osmPlaces = []; $("count").textContent = "Nepodařilo se načíst místa z OpenStreetMap, zkus to za chvíli."; }
-  render();
-}
+/* ---------- Firebase se načítá až po zobrazení míst (rychlejší start) ---------- */
+let db,fb;
+const fbReady=(async()=>{
+ await new Promise(r=>"requestIdleCallback"in window?requestIdleCallback(r,{timeout:1500}):setTimeout(r,300));
+ const[a,F]=await Promise.all([import("https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"),import("https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js")]);
+ fb=F;db=F.getFirestore(a.initializeApp(firebaseConfig));
+ F.onSnapshot(F.collection(db,"places"),s=>{userPlaces=s.docs.map(d=>({id:"u"+d.id,...d.data()}));render()},e=>console.error("Místa:",e));
+ F.onSnapshot(F.collection(db,"comments"),s=>{comments={};
+  s.docs.map(d=>d.data()).sort((x,y)=>(x.createdAt?.seconds??9e9)-(y.createdAt?.seconds??9e9)).forEach(c=>(comments[c.placeId]||=[]).push(c));
+  document.querySelectorAll("[id^='c-']").forEach(el=>el.innerHTML=commentsHtml(el.id.slice(2)))},e=>console.error("Komentáře:",e));
+})().catch(e=>console.error("Firebase:",e));
 
-// ---------- Vykreslení karet ----------
-function render() {
-  const list = [...userPlaces.filter(p => p.city === city && p.category === cat), ...osmPlaces]
-    .filter(p => p.name.toLowerCase().includes(query));
-  $("count").textContent = `Nalezeno míst: ${list.length}`;
-  $("more").classList.toggle("hidden", list.length <= shown);
-  setTimeout(lazyImages, 0);
-  $("grid").innerHTML = list.slice(0, shown).map(card).join("") || `<p class="col-span-full text-center text-slate-500 py-10">Nic nenalezeno.</p>`;
-}
-function card(p) {
-  const c = CATS[p.category];
-  const map = safeUrl(p.mapUrl) || (p.lat ? `https://www.google.com/maps/search/?api=1&query=${p.lat},${p.lon}` : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.name + " " + p.city)}`);
-  const booking = p.category === "hotel" ? `<a href="https://www.booking.com/searchresults.html?aid=${AFFILIATE_ID}&ss=${encodeURIComponent(p.name + " " + p.city)}" target="_blank" rel="nofollow sponsored noopener" class="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 rounded-lg text-sm">Rezervovat na Booking.com</a>` : "";
-  const web = safeUrl(p.web) ? `<a href="${esc(safeUrl(p.web))}" target="_blank" rel="noopener nofollow" class="block text-center text-indigo-600 text-sm hover:underline">Web místa</a>` : "";
-  const img = safeUrl(p.image)
-    ? `<img src="${esc(safeUrl(p.image))}" alt="${esc(p.name)}" loading="lazy" referrerpolicy="no-referrer" class="w-full h-44 object-cover" onerror="this.outerHTML='<div class=\\'h-44 flex items-center justify-center text-6xl bg-gradient-to-br ${c.grad}\\'>${c.emoji}</div>'">`
-    : `<div class="ph h-44 flex items-center justify-center text-6xl bg-gradient-to-br ${c.grad}" ${p.lat ? `data-pid="${esc(p.id)}" data-lat="${p.lat}" data-lon="${p.lon}" data-cat="${p.category}"` : ""}>${c.emoji}</div>`;
-  return `<article class="card bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden flex flex-col">
-    ${img}
-    <div class="p-5 flex-grow">
-      <div class="flex justify-between gap-2 items-start mb-1"><h4 class="font-bold leading-snug">${esc(p.name)}</h4>
-      <span class="text-xs px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full whitespace-nowrap">${esc(p.city)}</span></div>
-      <p class="text-sm text-slate-600 mb-3">${esc(p.description)}</p>
-      <h5 class="text-xs font-bold text-slate-400 uppercase mb-1">Recenze</h5>
-      <div id="c-${esc(p.id)}" class="max-h-24 overflow-y-auto">${commentsHtml(p.id)}</div>
-      <form data-place="${esc(p.id)}" class="flex gap-2 mt-2">
-        <input required maxlength="30" placeholder="Jméno" class="w-1/3 border rounded p-1.5 text-xs">
-        <input required maxlength="300" placeholder="Komentář…" class="w-2/3 border rounded p-1.5 text-xs">
-        <button class="bg-indigo-600 text-white px-3 rounded text-xs">+</button>
-      </form>
-    </div>
-    <div class="p-5 pt-0 space-y-2">${booking}
-      <a href="${esc(map)}" target="_blank" rel="noopener" class="block text-center bg-slate-100 hover:bg-slate-200 font-semibold py-2 rounded-lg text-sm">📍 Otevřít v mapách</a>${web}</div>
-  </article>`;
-}
-const commentsHtml = id => (comments[id] || []).map(c => `<div class="bg-slate-50 rounded p-2 text-xs mb-1"><b class="text-indigo-600">${esc(c.author)}</b>: ${esc(c.text)}</div>`).join("") || `<p class="text-xs text-slate-400 italic">Zatím žádné komentáře.</p>`;
-
-// ---------- Skutečné fotky z Wikimedia Commons podle GPS (jen pro zobrazené karty) ----------
-let imgCache = {};
-try { imgCache = JSON.parse(localStorage.getItem("tm_img_v1")) || {}; } catch {}
-const saveImgCache = () => { try { localStorage.setItem("tm_img_v1", JSON.stringify(imgCache)); } catch {} };
-async function findImg(lat, lon, rad) {
-  const u = `https://commons.wikimedia.org/w/api.php?action=query&generator=geosearch&ggscoord=${encodeURIComponent(lat + "|" + lon)}&ggsradius=${rad}&ggslimit=10&ggsnamespace=6&prop=imageinfo&iiprop=url|mime&iiurlwidth=500&format=json&origin=*`;
-  const j = await (await fetch(u)).json();
-  const pages = Object.values(j.query?.pages || {});
-  const hit = pages.map(x => x.imageinfo?.[0]).find(i => i && i.mime === "image/jpeg" && i.thumburl);
-  return hit ? hit.thumburl : "";
-}
-const io = new IntersectionObserver(entries => entries.forEach(async en => {
-  if (!en.isIntersecting) return;
-  const el = en.target; io.unobserve(el);
-  const { pid, lat, lon, cat: pc } = el.dataset;
-  let url = imgCache[pid];
-  if (url === undefined) {
-    try { url = await findImg(lat, lon, pc === "trail" ? 500 : 100); } catch { return; }
-    imgCache[pid] = url; saveImgCache();
-  }
-  if (url) { const im = new Image(); im.alt = ""; im.className = "w-full h-44 object-cover"; im.loading = "lazy"; im.onload = () => el.replaceWith(im); im.src = url; }
-}), { rootMargin: "200px" });
-function lazyImages() { document.querySelectorAll(".ph[data-pid]").forEach(el => io.observe(el)); }
-
-// ---------- Komentáře (Firestore, kolekce "comments") ----------
-$("grid").addEventListener("submit", async e => {
-  e.preventDefault();
-  const f = e.target, [a, t] = f.querySelectorAll("input");
-  try {
-    await addDoc(collection(db, "comments"), { placeId:f.dataset.place, author:a.value.trim(), text:t.value.trim(), createdAt:serverTimestamp() });
-    t.value = "";
-  } catch (err) { console.error(err); alert("Komentář se nepodařilo uložit (zkontroluj pravidla Firestore)."); }
-});
-onSnapshot(collection(db, "comments"), snap => {
-  comments = {};
-  snap.docs.map(d => d.data()).sort((x, y) => (x.createdAt?.seconds ?? 9e9) - (y.createdAt?.seconds ?? 9e9))
-    .forEach(c => (comments[c.placeId] ||= []).push(c));
-  document.querySelectorAll("[id^='c-']").forEach(el => el.innerHTML = commentsHtml(el.id.slice(2)));
-}, err => console.error("Komentáře:", err));
-
-// ---------- Uživatelská místa (Firestore, kolekce "places") ----------
-onSnapshot(collection(db, "places"), snap => {
-  userPlaces = snap.docs.map(d => ({ id:"u" + d.id, ...d.data() }));
-  render();
-}, err => console.error("Místa:", err));
-
-$("addForm").onsubmit = async e => {
-  e.preventDefault();
-  try {
-    await addDoc(collection(db, "places"), {
-      name:$("fName").value.trim(), city:$("fCity").value, category:$("fCat").value,
-      description:$("fDesc").value.trim(), image:$("fImg").value.trim(), mapUrl:$("fMap").value.trim(),
-      createdAt:serverTimestamp()
-    });
-    $("addForm").reset(); closeModal(); alert("Místo bylo uloženo do databáze!");
-  } catch (err) { console.error(err); alert("Uložení selhalo: " + err.code + " (zkontroluj pravidla Firestore)."); }
-};
-$("fCity").innerHTML = Object.keys(CITIES).map(c => `<option>${c}</option>`).join("");
-$("fCat").innerHTML = Object.entries(CATS).map(([k,v]) => `<option value="${k}">${v.label}</option>`).join("");
-const closeModal = () => { $("modal").classList.add("hidden"); $("modal").classList.remove("flex"); };
-$("openAdd").onclick = () => { $("modal").classList.remove("hidden"); $("modal").classList.add("flex"); };
-$("closeAdd").onclick = closeModal;
+$("grid").addEventListener("submit",async e=>{
+ e.preventDefault();const f=e.target,[a,t]=f.querySelectorAll("input");
+ try{await fbReady;await fb.addDoc(fb.collection(db,"comments"),{placeId:f.dataset.place,author:a.value.trim(),text:t.value.trim(),createdAt:fb.serverTimestamp()});t.value=""}
+ catch(err){console.error(err);alert("Komentář se nepodařilo uložit ("+(err.code||"chyba")+").")}});
+$("addForm").onsubmit=async e=>{
+ e.preventDefault();
+ try{await fbReady;await fb.addDoc(fb.collection(db,"places"),{name:$("fName").value.trim(),city:$("fCity").value,category:$("fCat").value,description:$("fDesc").value.trim(),image:$("fImg").value.trim(),mapUrl:$("fMap").value.trim(),createdAt:fb.serverTimestamp()});
+  $("addForm").reset();closeM();alert("Místo bylo uloženo do databáze!")}
+ catch(err){console.error(err);alert("Uložení selhalo: "+(err.code||"chyba")+" (zkontroluj pravidla Firestore).")}};
 
 reload();
 </script>
