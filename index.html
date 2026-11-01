@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>TourisMate – Hotely, restaurace, památky a stezky</title>
-<meta name="description" content="Komunitní průvodce: hotely, restaurace, památky a turistické stezky v krajských městech ČR, Špindlerově Mlýně a Krkonoších.">
+<meta name="description" content="Komunitní průvodce: hotely, restaurace, památky a turistické stezky v krajských městech ČR, Špindlerově Mlýnu a Krkonoších.">
 <meta name="theme-color" content="#16486f">
 <style>
 :root{--g:#16486f;--m:#2f8fd1;--c:#eef6fc;--w:#2b6a96;--a:#2a7fbf;--t:#1f2d3a;--l:#d9eaf6}
@@ -32,10 +32,9 @@ a{color:inherit}
 .tab{border:1px solid #bfd6e6;background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;font-size:.9rem}
 .tab.on{background:var(--g);border-color:var(--g);color:#fff}
 
-/* Styly pro reklamní pozice */
-.ad-banner{background:#fff;border-radius:14px;padding:16px;text-align:center;margin:24px 0 10px;border:2px dashed #bfd6e6;color:#6b8499;font-size:.85rem;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.card.ad-card{border:2px dashed #bfd6e6;background:#f7fbff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:#6b8499;min-height:340px}
-.ad-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#9ab2c7;margin-bottom:8px}
+/* Styly pro Google AdSense pozice */
+.ad-banner{background:#fff;border-radius:14px;padding:12px;text-align:center;margin:24px 0 10px;border:1px solid #bfd6e6;box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden}
+.card.ad-card{background:#fff;display:flex;flex-direction:column;justify-content:center;padding:14px;border:1px solid #bfd6e6;min-height:340px}
 
 .head{display:flex;justify-content:space-between;align-items:baseline;margin:28px 0 14px;gap:10px;flex-wrap:wrap}
 .head h2{margin:0;font-size:1.5rem;color:var(--g)}
@@ -77,6 +76,8 @@ footer{margin-top:40px;background:var(--g);color:#cfe3f2;text-align:center;paddi
 @keyframes s{to{background-position:-200% 0}}
 @media(max-width:560px){.hero svg{height:60px}.row .f.grow{flex-basis:100%}}
 </style>
+<!-- Globální AdSense skript (můžeš vložit i sem do hlavičky) -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-TVOJE_ID" crossorigin="anonymous"></script>
 </head>
 <body>
 <header class="hero">
@@ -102,11 +103,17 @@ footer{margin-top:40px;background:var(--g);color:#cfe3f2;text-align:center;paddi
     <div class="row" id="catTabs"></div>
   </div>
 
-  <!-- REKLAMNÍ MÍSTO 1: Horní banner -->
+  <!-- GOOGLE ADSENSE MÍSTO 1: Horní banner -->
   <div class="ad-banner">
-    <div class="ad-label">Reklama / Partner</div>
-    <!-- Zde vlož svůj reklamní kód (např. Google AdSense ins tag nebo banner image) -->
-    <span>Místo pro váš reklamní banner</span>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-TVOJE_ID"
+         data-ad-slot="TVOJE_SLOT_1"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
   </div>
 
   <div class="head"><h2 id="title"></h2><span class="muted" id="count"></span></div>
@@ -313,12 +320,18 @@ function render(afterLoad){
  
  const itemsHtml = list.slice(0,shown).map((p, index) => {
    let html = card(p);
-   // REKLAMNÍ MÍSTO 2: Vložíme reklamní kartu jako druhou položku v mřížce (pokud je dostatek prvků)
+   // GOOGLE ADSENSE MÍSTO 2: Vložíme reklamní kartu jako druhou položku v mřížce
    if (index === 1) {
      html += `<article class="card ad-card">
-       <div class="ad-label">Sponzorováno</div>
-       <p><strong>Místo pro reklamu</strong></p>
-       <p style="font-size: 0.8rem; margin: 8px 0 0;">Sem můžete vložit kód reklamního boxu nebo partnerský odkaz.</p>
+       <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-TVOJE_ID"
+            data-ad-slot="TVOJE_SLOT_2"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+       <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+       </script>
      </article>`;
    }
    return html;
